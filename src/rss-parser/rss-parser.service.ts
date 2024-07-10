@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-// import { Cron, CronExpression } from '@nestjs/schedule';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import * as Parser from 'rss-parser';
 import { FeedItemService } from 'src/feed-item/feed-item.service';
 
@@ -23,10 +23,10 @@ export class RssParserService {
 
   constructor(private readonly feedItemService: FeedItemService) {}
 
-  // @Cron(CronExpression.EVERY_10_SECONDS)
-  // async handleCron() {
-  //   await this.parseRssFeeds();
-  // }
+  @Cron(CronExpression.EVERY_10_MINUTES)
+  async handleCron() {
+    await this.parseRssFeeds();
+  }
 
   async parseRssFeeds() {
     const feedUrl = 'https://lifehacker.com/rss';
